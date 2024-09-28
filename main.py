@@ -1,11 +1,11 @@
-from api import make_request
 from json_handler import get_keys_from_file
 from similarity import find_most_similar
+from llm_factory import get_llm
 
-data = {"query": "De ce nu pot s\u0103 m\u0103 conectez la internet prin router?"}
+data = "De ce nu pot s\u0103 m\u0103 conectez la internet prin router?"
 
-def get_validated_type(data):
-    class_type = make_request("/classify", data)
+def get_validated_type(llm, data):
+    class_type = llm.query(data, "/classify")
 
     types = get_keys_from_file('support_ro.json', depth=2)
     types.remove("script_support")
@@ -19,11 +19,13 @@ def get_validated_type(data):
 
     return validated_type
 
-def get_user_sentiment(data):
-    return make_request("/sentiments", data)
+def get_user_sentiment(llm, data):
+    return llm.query(data, "/sentiments")
 
-validated_type = get_validated_type(data)
-user_sentiment = get_user_sentiment(data)
+llm = get_llm("server")
+
+validated_type = get_validated_type(llm, data)
+user_sentiment = get_user_sentiment(llm, data)
 
 print(user_sentiment)
 print(validated_type)
