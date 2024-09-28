@@ -2,7 +2,7 @@ from json_handler import get_keys_from_file
 from similarity import find_most_similar
 from llm_factory import get_llm
 from type_llm_factory import *
-
+from CustomRedis import CustomRedis
 
 def get_validated_type(llm, data):
     class_type = llm.query(data, "/classify")
@@ -32,5 +32,9 @@ user_sentiment = get_user_sentiment(llm, data)
 print(user_sentiment)
 print(validated_type)
 
-print(answer_based_on_type(data,"DONT KNOW"))
+llm_answer = answer_based_on_type(data, "DONT KNOW")
+# TODO add post processing prompt with requiremtns from docx
 
+redis = CustomRedis()
+
+redis.set_cache("message", llm_answer)

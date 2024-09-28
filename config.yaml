@@ -4,5 +4,5 @@ ngrok:
 llm: Grok
 
 redis:
-  host: 6.tcp.eu.ngrok.io  # Redis server host
+  host: 6.tcp.eu.ngrok.io
   port: 13961
