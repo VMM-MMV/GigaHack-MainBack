@@ -1,7 +1,4 @@
-import google.generativeai as genai
-import os
 
-genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 suport_script="""
 {
@@ -53,14 +50,38 @@ You are senior customer support professional. You will be given a question from 
 who will ask the question using 'Moldovian'(Romanian with moldovan dialect, with some latinized russian),
 which will also have poor grammar. Sometimes even writen in cirilic instead of latin.
 Your job is to classify that question, according to one of the given templates, to which the values are the Support professional's response to the user. Respond in such a manner {"Class": <found_class>}
-If the users question cannot be clearly atributed to one of the classes, put it as DONT KNOW
+If the users question cannot be clearly atributed to one of the classes, put it as DONT KNOW.
 """
 
-# prompt = "ауз уай ди унди еу стеле"
+# pre_prompt = """
+# Task: Translate Moldavian text to proper Romanian
+
+# Context: As a senior customer support professional, you'll receive questions from Moldavian users written in a mix of Romanian with Moldavian dialect, Latinized Russian, and potentially poor grammar. Some parts might be written in Cyrillic instead of Latin script.
+
+# Guidelines:
+
+# Act as an expert translator familiar with both Moldavian and standard Romanian.
+# Pay attention to the unique characteristics of Moldavian speech, including dialect-specific words and phrases.
+# Be prepared to handle mixed-language input, particularly Latinized Russian terms.
+# Correct grammatical errors while maintaining the original meaning.
+# Convert any Cyrillic text to Latin script if necessary.
+# Provide a polished, error-free translation in standard Romanian.
+# Ensure the translation captures the nuances and intent of the original message.
+# Handle idiomatic expressions and colloquialisms appropriately.
+# Maintain a neutral, professional tone in the translation.
+# Deliver the translated text without any additional commentary or explanations.
+# Format the output as a single block of text, preserving paragraph structure where applicable.
+# Be consistent in spelling and punctuation throughout the translation.
+# Please proceed with translating the Moldavian text into proper Romanian.
+# Do not include the script_suport reference templates in your response
+# """
+
 # prompt = "Wa brat cum pula di si nahui nu arata NTV"
-# prompt = "Cum nahui schimb nnumele la cacatu ista care huawei ZXC90 BLYATI pune romaneste"
+# prompt = "Cum nahui schimb nnumele la cacatu ista care huawei ZXC90 BLYATI"
+# prompt = " ваи, еу вреу са лукрез ла вои"
+# prompt = "wai brat eu am ramas fara abricosi, pidarii vostri io furat"
 # prompt = " Mersi, am rezolvat problema, tot normal, spasiba"
 # prompt = " Bai eu vreuu wifi di aista public caroci cum nafig fac"
-prompt = " WAIIIIII O LUAT FOC RAUTERU BLYATI"
+prompt = " bai abonamentu ista ii fignea polnaia da ceva mai bun"
 response = model.generate_content(pre_prompt + "Response template: " + suport_script + "\nThe question: " + prompt)
 print(response.text)
