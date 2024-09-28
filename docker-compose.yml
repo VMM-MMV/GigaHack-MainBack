@@ -1,21 +1,13 @@
-version: '3'
-
 
 services:
-  mysql:
-    image: mysql
-    container_name: mysql
+  my_db:
+    image: mysql:latest
+    container_name: my_db
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: railway
+      MYSQL_DATABASE: gigahack
       MYSQL_USER: user
       MYSQL_PASSWORD: admin
     ports:
-      - "3306:3306"
-    command: --init-file /starnet.sql
-    volumes:
-      - mysql_volume:/var/lib/mysql
-      - ./starnet.sql:/starnet.sql
-   
-volumes:
-    mysql_volume:
+      - "3306:3306"  # Map container's 3306 to host's 3307 to avoid conflict
+
