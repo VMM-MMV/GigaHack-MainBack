@@ -1,10 +1,10 @@
-from reader import get_sys_env
+from reader import get_config
 from GroqLLM import GroqLLM
 from ServerLLM import ServerLLM
 
 def get_llm(llm=None):
     if llm == None:
-        llm = get_sys_env("LLM")
+        llm = get_config("llm")
     llm = llm.lower()
 
     match(llm):

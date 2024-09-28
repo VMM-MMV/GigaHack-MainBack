@@ -1,9 +1,9 @@
 import requests
-from reader import get_sys_env
+from reader import get_config
 
 class ServerLLM:
     def query(self, query, end_point="/classify"):
-        ROOT = get_sys_env("NGROK_ROOT")
+        ROOT = get_config("ngrok.root")
 
         data = {"query": query}
 
