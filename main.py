@@ -12,7 +12,7 @@ def read_json(file_path):
     with open(file_path, 'r', encoding='utf-8') as json_file:
         return json.load(json_file)
 
-def query(prompt):    
+def query(prompt):
     client = Groq(
         api_key=os.getenv("GROQ_API_KEY")
     )
@@ -42,7 +42,8 @@ Your job is to classify that question based on the given response template. You 
 """
 
 # prompt = "Wa brat cum pula me bl aisi di gasit resetu la paroli"
-prompt = "ауз уай ди унди еу стеле"
+# prompt = "ауз уай ди унди еу стеле"
+prompt = "Cum bl si poati de prinit nisti stele"
 response = query(pre_prompt + "Response template: " + suport_script + "\nThe question: " + prompt)
 
 print(response)
