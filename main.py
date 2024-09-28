@@ -1,12 +1,16 @@
 import os
 from groq import Groq
 from dotenv import load_dotenv 
+import json
 load_dotenv() 
 
 def read_file(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         return f.read()
 
+def read_json(file_path):
+    with open(file_path, 'r', encoding='utf-8') as json_file:
+        return json.load(json_file)
 
 def query(prompt):    
     client = Groq(
@@ -28,14 +32,17 @@ def query(prompt):
 def remove_whitespace(text):
     return " ".join(text.split())
 
-suport_script = read_file("suport_script.txt")
+suport_script = read_file("support_ro.json")
 
-no_whitespace_suport_script = remove_whitespace(suport_script)
+pre_prompt = """
+You are senior customer support professional. You will be given a question from a Moldovian user, 
+who will ask the question using 'Moldovian'(Romanian with moldovan dialect, with some latinized russian), 
+which will also have poor grammar. Sometimes even writen in cirilic instead of latin.
+Your job is to classify that question based on the given response template. You in such a manner {"Class": <found_class>}
+"""
 
-print(no_whitespace_suport_script)
-
-pre_prompt = "You are a professional json writer. You will be given a technical support script and your job is too structure it into a json so its easier to understand. Separate romanian and russian."
-
-response = query(pre_prompt + "This is the sript: " + no_whitespace_suport_script)
+# prompt = "Wa brat cum pula me bl aisi di gasit resetu la paroli"
+prompt = "ауз уай ди унди еу стеле"
+response = query(pre_prompt + "Response template: " + suport_script + "\nThe question: " + prompt)
 
 print(response)
