@@ -1,11 +1,9 @@
-import os
 from groq import Groq
-from dotenv import load_dotenv 
-load_dotenv() 
+from reader import get_env
 
 def query(prompt):
     client = Groq(
-        api_key=os.getenv("GROQ_API_KEY")
+        api_key=get_env("GROQ_API_KEY")
     )
 
     chat_completion = client.chat.completions.create(
