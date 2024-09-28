@@ -1,0 +1,8 @@
+ngrok:
+  root: https://329c-34-125-174-196.ngrok-free.app
+
+llm: Grok
+
+redis:
+  host: 6.tcp.eu.ngrok.io  # Redis server host
+  port: 13961
