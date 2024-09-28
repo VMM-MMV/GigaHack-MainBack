@@ -12,4 +12,4 @@ def make_request(end_point, body):
         json_response = response.json()
         return json_response.get("response")
     else:
-         raise Exception(f"Failed with status code {response.status_code}. Response: {response.text}")
+        raise Exception(f"Failed with status code {response.status_code}. Response: {response.text}")

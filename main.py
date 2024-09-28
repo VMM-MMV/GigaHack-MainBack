@@ -2,20 +2,28 @@ from api import make_request
 from json_handler import get_keys_from_file
 from similarity import find_most_similar
 
-data = {
-    "query": "Wai puli tu teai ahuit disi la mini rutaru nu merji"
-}
+data = {"query": "De ce nu pot s\u0103 m\u0103 conectez la internet prin router?"}
 
-class_type = make_request("/classify", data)
+def get_validated_type(data):
+    class_type = make_request("/classify", data)
 
-types = get_keys_from_file('support_ro.json', depth=2)
-types.remove("script_support")
-types.append("DONT KNOW")
+    types = get_keys_from_file('support_ro.json', depth=2)
+    types.remove("script_support")
+    types.append("DONT KNOW")
 
-print(class_type)
+    print(class_type)
 
-validated_type, _ = find_most_similar(class_type, types)
+    validated_type, _ = find_most_similar(class_type, types)
 
+    print(validated_type)
+
+    return validated_type
+
+def get_user_sentiment(data):
+    return make_request("/sentiments", data)
+
+validated_type = get_validated_type(data)
+user_sentiment = get_user_sentiment(data)
+
+print(user_sentiment)
 print(validated_type)
-
-# print(response)
