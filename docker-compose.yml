@@ -1,0 +1,21 @@
+version: '3'
+
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: railway
+      MYSQL_USER: user
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    command: --init-file /starnet.sql
+    volumes:
+      - mysql_volume:/var/lib/mysql
+      - ./starnet.sql:/starnet.sql
+   
+volumes:
+    mysql_volume:
