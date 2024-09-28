@@ -1,5 +1,5 @@
 from Levenshtein import distance
-from get_keys import get_keys_from_file
+from json_handler import get_keys_from_file
 
 def find_most_similar(target, word_list):
     if not word_list:
